@@ -34,7 +34,39 @@ const confirmPayment = async (req, res, next) => {
   }
 };
 
+const getAllTransactions = async (req, res, next) => {
+  try {
+    const result = await PaymentServices.getAllTransactions();
+    sendResponse(res, {
+      statusCode: 200,
+      success: true,
+      message: "Transactions fetched successfully",
+      data: result,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
+const getSingleTransactions = async (req, res, next) => {
+  try {
+    const { email } = req.params;
+    const result = await PaymentServices.getSingleTransactions(email);
+
+    sendResponse(res, {
+      statusCode: 200,
+      success: true,
+      message: "Transaction fetched successfully",
+      data: result,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
 export const PaymentControllers = {
   createPaymentIntent,
   confirmPayment,
+  getAllTransactions,
+  getSingleTransactions,
 };

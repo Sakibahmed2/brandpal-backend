@@ -7,4 +7,8 @@ router.post("/create-payment", PaymentControllers.createPaymentIntent);
 
 router.post("/confirm-payment", PaymentControllers.confirmPayment);
 
+router.get("/transactions", PaymentControllers.getAllTransactions);
+
+router.get("/transactions/:email", PaymentControllers.getSingleTransactions);
+
 export const paymentRoutes = router;

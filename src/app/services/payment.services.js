@@ -23,7 +23,21 @@ const confirmPayment = async (data) => {
   return result;
 };
 
+const getAllTransactions = async () => {
+  const transactions = await Transaction.find();
+
+  return transactions;
+};
+
+const getSingleTransactions = async (email) => {
+  const result = await Transaction.findOne({ email: email });
+
+  return result;
+};
+
 export const PaymentServices = {
   createPaymentIntent,
   confirmPayment,
+  getAllTransactions,
+  getSingleTransactions,
 };
