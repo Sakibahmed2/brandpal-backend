@@ -21,6 +21,7 @@ const loginUser = async (payload) => {
   const jwtPayload = {
     email: isUserExist.email,
     role: isUserExist.role,
+    id: isUserExist._id,
   };
 
   const accessToken = createToken(

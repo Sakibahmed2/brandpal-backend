@@ -6,11 +6,15 @@ const loginUser = async (req, res, next) => {
     const userInfo = req.body;
     const result = await AuthServices.loginUser(userInfo);
 
+    const accessToken = result;
+
     sendResponse(res, {
       success: true,
       statusCode: 200,
       message: "User logged in successfully",
-      data: result,
+      data: {
+        accessToken,
+      },
     });
   } catch (err) {
     next(err);
