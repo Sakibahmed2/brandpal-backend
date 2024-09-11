@@ -5,4 +5,8 @@ const router = Router();
 
 router.post("/create-user", userControllers.createUser);
 
+router.get("/", userControllers.getAllUser);
+
+router.get("/:userId", userControllers.getSingleUser);
+
 export const userRoutes = router;

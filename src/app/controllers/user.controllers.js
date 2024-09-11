@@ -18,6 +18,40 @@ const createUser = async (req, res, next) => {
   }
 };
 
+const getAllUser = async (req, res, next) => {
+  try {
+    const result = await userServices.getAllUserFromDB();
+
+    sendResponse(res, {
+      success: true,
+      statusCode: 200,
+      message: "List of all users",
+      data: result,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
+const getSingleUser = async (req, res, next) => {
+  try {
+    const { userId } = req.params;
+
+    const result = await userServices.getSingleUserFromDB(userId);
+
+    sendResponse(res, {
+      success: true,
+      statusCode: 200,
+      message: "User details",
+      data: result,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
 export const userControllers = {
   createUser,
+  getAllUser,
+  getSingleUser,
 };

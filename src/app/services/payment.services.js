@@ -1,6 +1,7 @@
 import Stripe from "stripe";
 import config from "../config/index.js";
 import { Transaction } from "../models/payment.model.js";
+import AppError from "../errors/AppError.js";
 
 // const stripe = require("stripe")(config.stripe_secret_key);
 const stripe = new Stripe(config.stripe_secret_key);
@@ -18,6 +19,20 @@ const createPaymentIntent = async (totalPrice) => {
 };
 
 const confirmPayment = async (data) => {
+  // check if service is already ongoing or exists
+  const isExistingTransaction = await Transaction.findOne({
+    email: data.email,
+    serviceId: { $in: data.serviceId },
+    status: "ongoing",
+  });
+
+  if (isExistingTransaction) {
+    throw new AppError(
+      400,
+      `${isExistingTransaction} ,Service is already ongoing`
+    );
+  }
+
   const result = await Transaction.create(data);
 
   return result;
