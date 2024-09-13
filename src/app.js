@@ -5,6 +5,7 @@ import { userRoutes } from "./app/routes/user.routes.js";
 import globalErrorHandler from "./app/middlewares/globalErrorHandler.js";
 import { authRoutes } from "./app/routes/auth.routes.js";
 import { paymentRoutes } from "./app/routes/payment.routes.js";
+import { serviceRoutes } from "./app/routes/service.routes.js";
 
 const app = express();
 
@@ -18,6 +19,8 @@ app.use("/api/v1/user", userRoutes);
 app.use("/api/v1/auth", authRoutes);
 
 app.use("/api/v1/payment", paymentRoutes);
+
+app.use("/api/v1/services", serviceRoutes);
 
 app.get("/", (req, res) => {
   res.send("Hello World!");

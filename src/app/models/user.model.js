@@ -14,9 +14,9 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
-  dateOfBirth: {
-    type: Date,
-    required: true,
+  country: {
+    type: String,
+    default: "Bangladesh",
   },
   role: {
     type: String,
