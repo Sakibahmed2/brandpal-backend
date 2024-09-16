@@ -25,6 +25,10 @@ const serviceSchema = new Schema({
     type: [String],
     required: [true, "Features are required"],
   },
+  offerPrice: {
+    type: Number,
+    default: 0,
+  },
 });
 
 export const Services = mongoose.model("Services", serviceSchema);

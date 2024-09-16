@@ -50,8 +50,28 @@ const getSingleUser = async (req, res, next) => {
   }
 };
 
+const claimOffer = async (req, res, next) => {
+  try {
+    const { userId } = req.params;
+
+    const { offerName } = req.body;
+
+    const result = await userServices.claimOffer(userId, offerName);
+
+    sendResponse(res, {
+      success: true,
+      statusCode: 200,
+      message: "Offer claimed successfully",
+      data: result,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
 export const userControllers = {
   createUser,
   getAllUser,
   getSingleUser,
+  claimOffer,
 };

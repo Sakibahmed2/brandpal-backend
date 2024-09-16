@@ -19,20 +19,6 @@ const createPaymentIntent = async (totalPrice) => {
 };
 
 const confirmPayment = async (data) => {
-  // check if service is already ongoing or exists
-  const isExistingTransaction = await Transaction.findOne({
-    email: data.email,
-    serviceId: { $in: data.serviceId },
-    status: "ongoing",
-  });
-
-  if (isExistingTransaction) {
-    throw new AppError(
-      400,
-      `${isExistingTransaction} ,Service is already ongoing`
-    );
-  }
-
   const result = await Transaction.create(data);
 
   return result;
@@ -45,7 +31,15 @@ const getAllTransactions = async () => {
 };
 
 const getSingleTransactions = async (email) => {
-  const result = await Transaction.findOne({ email: email });
+  const result = await Transaction.find({ email: email });
+
+  return result;
+};
+
+const updateTransactionToSuccess = async (transactionId) => {
+  const result = await Transaction.findByIdAndUpdate(transactionId, {
+    status: "success",
+  });
 
   return result;
 };
@@ -55,4 +49,5 @@ export const PaymentServices = {
   confirmPayment,
   getAllTransactions,
   getSingleTransactions,
+  updateTransactionToSuccess,
 };

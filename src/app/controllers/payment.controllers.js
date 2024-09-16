@@ -64,9 +64,28 @@ const getSingleTransactions = async (req, res, next) => {
   }
 };
 
+const updateTransactionToSuccess = async (req, res, next) => {
+  try {
+    const { transactionId } = req.params;
+    const result = await PaymentServices.updateTransactionToSuccess(
+      transactionId
+    );
+
+    sendResponse(res, {
+      statusCode: 200,
+      success: true,
+      message: "Transaction updated successfully",
+      data: result,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
 export const PaymentControllers = {
   createPaymentIntent,
   confirmPayment,
   getAllTransactions,
   getSingleTransactions,
+  updateTransactionToSuccess,
 };

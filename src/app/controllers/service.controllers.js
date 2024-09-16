@@ -19,7 +19,9 @@ const createService = async (req, res, next) => {
 
 const getAllServices = async (req, res, next) => {
   try {
-    const result = await serviceServices.getAllServicesFromDB();
+    const userId = req.query.userId;
+
+    const result = await serviceServices.getAllServicesFromDB(userId);
 
     sendResponse(res, {
       statusCode: 200,
