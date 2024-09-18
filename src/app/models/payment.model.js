@@ -34,6 +34,10 @@ const paymentScheme = new Schema({
     enum: ["success", "pending"],
     default: "pending",
   },
+  offer: {
+    type: String,
+    default: "none",
+  },
 });
 
 export const Transaction = model("Transaction", paymentScheme);
